@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Algorithms</title>
+</head>
+<body>
+    <h1>Submitted Algorithms</h1>
+    <div id="submitted-algorithms">
+        {% for selected_algorithm in selected_algorithms %}
+            <div class="algorithm-block">
+                <h3>{{ selected_algorithm.name }}</h3>
+                {% for param in selected_algorithm.parameters %}
+                    <p>{{ param.name }}: {{ request.form[selected_algorithm.name ~ '_' ~ param.name] }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

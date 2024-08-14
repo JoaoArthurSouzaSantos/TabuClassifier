@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Algorithm</title>
+</head>
+<body>
+    <h1>Select an Algorithm</h1>
+    <form action="/" method="POST">
+        <label for="algorithm">Choose an algorithm:</label>
+        <select name="algorithm" id="algorithm">
+            {% for algorithm in algorithms %}
+                <option value="{{ algorithm.name }}">{{ algorithm.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Add Algorithm</button>
+    </form>
+
+    <h2>Selected Algorithms</h2>
+    <form action="{{ url_for('submit') }}" method="POST">
+        {% for selected_algorithm in selected_algorithms %}
+            <div class="algorithm-block">
+                <h3>{{ selected_algorithm.name }}</h3>
+                {% for param in selected_algorithm.parameters %}
+                    <div>
+                        <label for="{{ param.name }}">{{ param.name }}:</label>
+                        {% if param.type == "input" %}
+                            <input type="text" name="{{ selected_algorithm.name }}_{{ param.name }}" id="{{ param.name }}" value="{{ param.value }}">
+                        {% elif param.type == "select" %}
+                            <select name="{{ selected_algorithm.name }}_{{ param.name }}" id="{{ param.name }}">
+                                {% for option in param.options %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit">Submit All</button>
+    </form>
+</body>
+</html>
