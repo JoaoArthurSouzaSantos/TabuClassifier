@@ -13,6 +13,14 @@ $(document).ready(function() {
             }
         });
     });
+    
+    $('#file-upload').on('change', function() {
+        if (this.files.length > 0) {
+            $('#algorithm').prop('disabled', false);
+            $('.btn-add').prop('disabled', false);
+            $('#selected-algorithms-container').show(); // Mostra a div de algoritmos selecionados
+        }
+    });
 
     $(document).on('click', '.remove-algorithm', function() {
         var algorithmName = $(this).data('name');

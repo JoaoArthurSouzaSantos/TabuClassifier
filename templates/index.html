@@ -9,12 +9,28 @@
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
+    
+    <header class="header">
+        <div class="logo">Lica</div>
+        <nav class="header-nav">
+            <a href="#">Configurações</a>
+            <a href="#">Help</a>
+        </nav>
+    </header>
+
     <div class="container">
         <div class="form-selection">
             <form id="upload-form" enctype="multipart/form-data">
                 <label for="file-upload">Upload a file (.txt, .csv):</label>
                 <input type="file" id="file-upload" name="file-upload" accept=".txt, .csv" required>
             </form>
+
+            <div class="data-options">
+                <label><input type="checkbox" id="normalize" name="normalize"> Normalize</label>
+                <label><input type="checkbox" id="impute" name="impute"> Impute Missing Values</label>
+                <label><input type="checkbox" id="standardize" name="standardize"> Standardize</label>
+                <label><input type="checkbox" id="encode" name="encode"> Encode Categorical Data</label>
+            </div>
 
             <form id="add-algorithm-form" style="margin-top: 20px;">
                 <label for="algorithm">Choose an algorithm:</label>
@@ -27,7 +43,7 @@
             </form>
         </div>
 
-        <div class="selected-algorithms">
+        <div class="selected-algorithms" id="selected-algorithms-container" style="display: none;">
             <h2>Selected Algorithms</h2>
             <div id="selected-algorithms">
                 {% for algorithm in selected_algorithms %}
