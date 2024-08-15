@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 
 app = Flask(__name__)
 
@@ -44,17 +44,30 @@ algorithms = [
 
 selected_algorithms = []
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    if request.method == 'POST':
-        algorithm_name = request.form['algorithm']
-        selected_algorithm = next(algo for algo in algorithms if algo['name'] == algorithm_name)
-        selected_algorithms.append(selected_algorithm)
     return render_template('index.html', algorithms=algorithms, selected_algorithms=selected_algorithms)
+
+@app.route('/add_algorithm', methods=['POST'])
+def add_algorithm():
+    algorithm_name = request.json['algorithm']
+    selected_algorithm = next(algo for algo in algorithms if algo['name'] == algorithm_name)
+    selected_algorithms.append(selected_algorithm)
+    rendered_html = render_template('algorithm_item.html', algorithm=selected_algorithm)
+    return jsonify({"html": rendered_html})
+
+@app.route('/remove_algorithm', methods=['POST'])
+def remove_algorithm():
+    algorithm_name = request.json['algorithm']
+    global selected_algorithms
+    selected_algorithms = [algo for algo in selected_algorithms if algo['name'] != algorithm_name]
+    return jsonify({"success": True})
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    return render_template('submit.html', selected_algorithms=selected_algorithms)
+    # Aqui você pode processar os dados de todos os algoritmos selecionados
+    # Por exemplo, renderizar uma página de resumo ou salvar em um banco de dados
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)
