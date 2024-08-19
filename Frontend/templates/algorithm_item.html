@@ -1,0 +1,18 @@
+<div class="algorithm-block" id="{{ algorithm.name }}">
+    <h3>{{ algorithm.name }}</h3>
+    {% for param in algorithm.parameters %}
+        <div class="form-group">
+            <label for="{{ param.name }}">{{ param.name }}:</label>
+            {% if param.type == "input" %}
+                <input type="text" name="{{ algorithm.name }}_{{ param.name }}" id="{{ param.name }}" value="{{ param.value }}">
+            {% elif param.type == "select" %}
+                <select name="{{ algorithm.name }}_{{ param.name }}" id="{{ param.name }}">
+                    {% for option in param.options %}
+                        <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button class="remove-algorithm" data-name="{{ algorithm.name }}">Remove</button>
+</div>

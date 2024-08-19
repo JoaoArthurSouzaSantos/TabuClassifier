@@ -1,49 +1,11 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
+from utils import algorithms
+# from frontend.routes import home
 
-app = Flask(__name__)
-
-#deixar fora da main em formato json
-algorithms = [
-    {
-        "name": "RandomForestClassifier",
-        "parameters": [
-            {"name": "n_estimators", "type": "input", "value": ""},
-            {"name": "criterion", "type": "select", "options": ["gini", "entropy"]},
-            {"name": "max_depth", "type": "input", "value": ""},
-            {"name": "min_samples_split", "type": "input", "value": ""}
-        ]
-    },
-    {
-        "name": "SVM",
-        "parameters": [
-            {"name": "C", "type": "input", "value": ""},
-            {"name": "kernel", "type": "select", "options": ["linear", "poly", "rbf", "sigmoid"]},
-            {"name": "gamma", "type": "select", "options": ["scale", "auto"]},
-            {"name": "degree", "type": "input", "value": ""}
-        ]
-    },
-    {
-        "name": "KNeighborsClassifier",
-        "parameters": [
-            {"name": "n_neighbors", "type": "input", "value": ""},
-            {"name": "weights", "type": "select", "options": ["uniform", "distance"]},
-            {"name": "algorithm", "type": "select", "options": ["auto", "ball_tree", "kd_tree", "brute"]},
-            {"name": "p", "type": "input", "value": ""}
-        ]
-    },
-    {
-        "name": "LogisticRegression",
-        "parameters": [
-            {"name": "penalty", "type": "select", "options": ["l1", "l2", "elasticnet", "none"]},
-            {"name": "C", "type": "input", "value": ""},
-            {"name": "solver", "type": "select", "options": ["newton-cg", "lbfgs", "liblinear", "sag", "saga"]},
-            {"name": "max_iter", "type": "input", "value": ""}
-        ]
-    }
-]
+app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
+# app.register_blueprint(home)
 
 selected_algorithms = []
-
 
 #criar um arquivo só pra rotas
 @app.route('/')
@@ -70,6 +32,3 @@ def submit():
     # Aqui você pode processar os dados de todos os algoritmos selecionados
     # Por exemplo, renderizar uma página de resumo ou salvar em um banco de dados
     return redirect(url_for('index'))
-
-if __name__ == "__main__":
-    app.run(debug=True)
