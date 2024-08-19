@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 
 app = Flask(__name__)
 
-# Lista de algoritmos com parâmetros
+#deixar fora da main em formato json
 algorithms = [
     {
         "name": "RandomForestClassifier",
@@ -44,6 +44,8 @@ algorithms = [
 
 selected_algorithms = []
 
+
+#criar um arquivo só pra rotas
 @app.route('/')
 def index():
     return render_template('index.html', algorithms=algorithms, selected_algorithms=selected_algorithms)
