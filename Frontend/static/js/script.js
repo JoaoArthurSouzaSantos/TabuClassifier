@@ -48,3 +48,49 @@ $(document).ready(function() {
 });
 
 
+function SubmitAlgorithims(){
+
+    const options    = document.querySelector(".data-options").querySelectorAll("input");
+    const file       = document.getElementById("file-upload");
+    const algorithmsBlock = document.querySelectorAll(".algorithm-block");
+
+    const processing = {};
+    options.forEach(input => processing[input.id] = input.checked);
+
+    const algorithms = {};
+    algorithmsBlock.forEach(block => {
+        
+        const algorithmName = block.id;
+
+        const parametros = {};
+
+        const inputs = block.querySelectorAll("input, select");
+
+        inputs.forEach(input => parametros[input.id] = input.value);
+
+
+        algorithms[algorithmName] = parametros;
+    })
+
+    console.log(algorithms)
+
+    const data = {
+        processing:processing,
+        algorithms: algorithms
+    }
+
+    const formData = new FormData();
+    formData.append('file', file.files[0]);
+    formData.append('data', JSON.stringify(data));
+
+    fetch(url_submit, {
+        method: 'POST',
+        body: formData
+    }).then(response => response.json())
+    .then(data => {
+        console.log("Sucesso:", data)
+    })
+    .catch((error) => {
+        console.log("erro:" + error)
+    }); 
+}

@@ -51,10 +51,15 @@
                 {% endfor %}
             </div>
 
-            <form action="{{ url_for('submit') }}" method="POST" class="form-submit">
-                <button type="submit" class="btn-submit">Submit All</button>
+            <form class="form-submit">
+                <button type="button" class="btn-submit", onClick="SubmitAlgorithims()">Submit All</button>
+                
             </form>
         </div>
     </div>
+    <script>
+        url_submit = "{{ url_for('submit') }}";
+    </script>
+
 </body>
 </html>

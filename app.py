@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from utils import algorithms
+import json
 # from frontend.routes import home
 
 app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
@@ -31,4 +32,12 @@ def remove_algorithm():
 def submit():
     # Aqui você pode processar os dados de todos os algoritmos selecionados
     # Por exemplo, renderizar uma página de resumo ou salvar em um banco de dados
-    return redirect(url_for('index'))
+    uploaded_file = request.files['file']
+    data = request.form['data']
+    
+    json_data = json.loads(data)  
+    print("Arquivo recebido:", uploaded_file.filename)
+    print("Dados recebidos:", json_data)
+    
+    return jsonify( {"status":"success", "received_data": json_data})
+    #return redirect(url_for('index'))
