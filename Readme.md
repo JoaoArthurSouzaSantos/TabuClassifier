@@ -9,10 +9,10 @@
 
 | Parâmetro                  | Tipo         | Descrição   |
 | :----------                | :-----       | :---------- |
-| `Normalize`                | `Boolean`    | Define o arquivo a ser enviado |
-| `Input Missing Values`     | `Boolean`    | Objeto contendo escolhas de pré-processamento  |
-| `Stardardize`              | `Boolean`    | Objeto contendo todos os Algoritmos a ser utilizado |
-| `Enconde Categorical Data` | `Boolean`    | Objeto contendo todos os Algoritmos a ser utilizado |
+| `Normalize`                | `Boolean`    | Define se os dados devem ser normalizados ou não  |
+| `Input Missing Values`     | `Boolean`    | Define se os dados ausentes devem ser tratados ou não. |
+| `Stardardize`              | `Boolean`    | Define se os dados devem ser transformados para ter média zero e desvio padrão um. |
+| `Enconde Categorical Data` | `Boolean`    | Especifica se dados categóricos devem ser convertidos em formato numérico. |
 
 
 ## Algoritmos de classificação 
@@ -21,21 +21,21 @@
 ### Random Forest Classifier
 | Parâmetro   | Tipo   | Descrição   |
 | :---------- | :----- | :---------- |
-| `n_estimators` | `inteiro` |  |
-| `criterion` | `string` | |
-| `Max_deph` | `Boolean` |  |
-| `min_samples_split:` | `Boolean` |  |
-|`n_jobs`|
+| `n_estimators` | `inteiro` | Defrine o número de árvores na floresta. |
+| `criterion` | `string` | Define a função usada para medir a qualidade da divisão, podendo ser gini ou entropy. |
+| `Max_deph` | `inteiro` | Define a profundidade maxima das arvores. |
+| `min_samples_split` | `inteiro` | Define número mínimo de amostras. |
+|`n_jobs`|  `inteiro` | número de Threads a serem utilizadas para as operações |
 
 
 
 ### SVM
 | Parâmetro   | Tipo   | Descrição   |
 | :---------- | :----- | :---------- |
-| `C` | `inteiro` |  |
+| `C` | `float` |  |
 | `kernel` | `string` | |
-| `gamma` | `Boolean` |  |
-| `degree` | `Boolean` |  |
+| `gamma` | `float` |  |
+| `degree` | `inteiro` |  |
 
 
 ### KNeighborsClassifier
@@ -43,14 +43,14 @@
 | :---------- | :----- | :---------- |
 | `n_neighbors` | `inteiro` |  |
 | `weights` | `string` | |
-| `algorithm` | `Boolean` |  |
-| `p` | `Boolean` |  |
+| `algorithm` | `string` |  |
+| `p` | `inteiro` |  |
 
 
 ### LogisticRegression
 | Parâmetro   | Tipo   | Descrição   |
 | :---------- | :----- | :---------- |
-| `penalty` | `inteiro` |  |
-| `C` | `string` | |
-| `solver` | `Boolean` |  |
-| `max_iter` | `Boolean` |  |
+| `penalty` | `string` |  |
+| `C` | `float` | |
+| `solver` | `string` |  |
+| `max_iter` | `inteiro` |  |
