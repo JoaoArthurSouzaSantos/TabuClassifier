@@ -1,15 +1,3 @@
-
-<img src="https://img.shields.io/static/v1?label=Python&message=language&color=blue&style=for-the-badge&logo=Python"/>
-<img src="https://img.shields.io/static/v1?label=Pandas&message=library&color=yellow&style=for-the-badge&logo=Pandas"/>
-<img src="https://img.shields.io/static/v1?label=sklearn&message=library&color=red&style=for-the-badge&logo=scikitlearn"/>
-<img src="https://img.shields.io/static/v1?label=numpy&message=library&color=red&style=for-the-badge&logo=numpy"/>
-
-
-Flask
-Pandas
-Sklearn
-Numpy
-
 | Dados        | Tipo     | Descrição   |
 | :----------  | :-----   | :---------- |
 | `Archive`    | `txt/csv`| Define o arquivo a ser enviado |
@@ -21,7 +9,6 @@ Numpy
 
 | Parâmetro                  | Tipo         | Descrição   |
 | :----------                | :-----       | :---------- |
-| `label`|
 | `Normalize`                | `Boolean`    | Define se os dados devem ser normalizados ou não  |
 | `Input Missing Values`     | `Boolean`    | Define se os dados ausentes devem ser tratados ou não. |
 | `Stardardize`              | `Boolean`    | Define se os dados devem ser transformados para ter média zero e desvio padrão um. |
