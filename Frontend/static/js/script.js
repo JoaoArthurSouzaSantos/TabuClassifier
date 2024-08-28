@@ -55,7 +55,19 @@ function SubmitAlgorithims(){
     const algorithmsBlock = document.querySelectorAll(".algorithm-block");
 
     const processing = {};
-    options.forEach(input => processing[input.id] = input.checked);
+    options.forEach(input => {
+        switch (input.type){
+            case 'range':
+                processing[input.id] = input.value;
+                break;
+            case 'checkbox':
+                processing[input.id] = input.checked;
+                break;
+
+            default:
+                console.log("Input não reconhecido.")
+        }
+    });
 
     const algorithms = {};
     algorithmsBlock.forEach(block => {
@@ -93,4 +105,8 @@ function SubmitAlgorithims(){
     .catch((error) => {
         console.log("erro:" + error)
     }); 
+}
+
+function updateValue(val) {
+    document.getElementById('trainValue').textContent = val + '%';
 }
