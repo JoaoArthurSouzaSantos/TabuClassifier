@@ -52,14 +52,10 @@
             </div>
 
             <form class="form-submit">
-                <button type="button" class="btn-submit", onClick="SubmitAlgorithims()">Submit All</button>
+                <button type="button" class="btn-submit", onClick="SubmitAlgorithims(`{{ url_for('submit') }}`)">Submit All</button>
                 
             </form>
         </div>
     </div>
-    <script>
-        url_submit = "{{ url_for('submit') }}";
-    </script>
-
 </body>
 </html>

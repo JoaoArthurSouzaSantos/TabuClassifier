@@ -48,7 +48,7 @@ $(document).ready(function() {
 });
 
 
-function SubmitAlgorithims(){
+function SubmitAlgorithims(url){
 
     const options    = document.querySelector(".data-options").querySelectorAll("input");
     const file       = document.getElementById("file-upload");
@@ -95,7 +95,7 @@ function SubmitAlgorithims(){
     formData.append('file', file.files[0]);
     formData.append('data', JSON.stringify(data));
 
-    fetch(url_submit, {
+    fetch(url, {
         method: 'POST',
         body: formData
     }).then(response => response.json())
