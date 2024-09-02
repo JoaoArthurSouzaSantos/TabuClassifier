@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from utils import algorithms
+import pandas as pd
 import json
 # from frontend.routes import home
 

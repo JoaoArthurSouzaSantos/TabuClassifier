@@ -10,8 +10,7 @@
 | Parâmetro                  | Tipo         | Descrição   |
 | :----------                | :-----       | :---------- |
 | `Normalize`                | `Boolean`    | Define se os dados devem ser normalizados ou não  |
-| `Input Missing Values`     | `Boolean`    | Define se os dados ausentes devem ser tratados ou não. |
-| `Stardardize`              | `Boolean`    | Define se os dados devem ser transformados para ter média zero e desvio padrão um. |
+| `dropNan`                  | `Boolean`    | Define se os dados ausentes devem ser tratados ou não. |
 | `Enconde Categorical Data` | `Boolean`    | Especifica se dados categóricos devem ser convertidos em formato numérico. |
 
 
