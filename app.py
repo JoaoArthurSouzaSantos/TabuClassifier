@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 from utils import algorithms
 import pandas as pd
 import json
+from process_functions.preprocessamento import preprocessing
 # from frontend.routes import home
 
 app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
@@ -35,10 +36,13 @@ def submit():
     # Por exemplo, renderizar uma página de resumo ou salvar em um banco de dados
     uploaded_file = request.files['file']
     data = request.form['data']
-    
     json_data = json.loads(data)  
+    
     print("Arquivo recebido:", uploaded_file.filename)
     print("Dados recebidos:", json_data)
     
+    uploaded_new_file = preprocessing(uploaded_file, **json_data['processing'])
+    print(uploaded_new_file[0])
+    print(uploaded_new_file[1])
     return jsonify( {"status":"success", "received_data": json_data})
     #return redirect(url_for('index'))
