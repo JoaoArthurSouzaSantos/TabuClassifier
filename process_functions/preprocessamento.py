@@ -22,15 +22,17 @@ def preprocessing(upload_file, train ,normalize, dropNan, encode):
         for colum in df.columns:
            
             if (type(df[colum][0]) == str):
-                print("ovos")
                 df[colum] = label_encoder.fit_transform(df[colum])
     
     y = df.pop("Case Closed")
     
      
     if normalize:
-        df=MinMaxScaler(df)
-    df = pd.DataFrame(df)
+        scaler=MinMaxScaler()
+        scaled_data=scaler.fit_transform(df)
+        
+        df=pd.DataFrame(scaled_data,columns=df.columns)
+        
     
     
-    return (df, y)
+    return df, y

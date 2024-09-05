@@ -41,8 +41,14 @@ def submit():
     print("Arquivo recebido:", uploaded_file.filename)
     print("Dados recebidos:", json_data)
     
-    uploaded_new_file = preprocessing(uploaded_file, **json_data['processing'])
-    print(uploaded_new_file[0])
-    print(uploaded_new_file[1])
-    return jsonify( {"status":"success", "received_data": json_data})
+    df, y = preprocessing(uploaded_file, **json_data['processing'])
+    return render_template("data.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
     #return redirect(url_for('index'))
+    
+@app.route('/teste', methods=['GET'])
+def teste():
+    t = request.args['t']
+    f = request.files['file']
+    print(t)
+    
+    return "TESTE"
