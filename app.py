@@ -1,10 +1,14 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from utils import algorithms
 import pandas as pd
+import os
 import json
+from process_functions.preprocessamento import preprocessing
 # from frontend.routes import home
 
 app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
+app.secret_key = 'secret_key' 
+UPLOAD_FOLDER = './'
 # app.register_blueprint(home)
 
 selected_algorithms = []
@@ -35,10 +39,33 @@ def submit():
     # Por exemplo, renderizar uma página de resumo ou salvar em um banco de dados
     uploaded_file = request.files['file']
     data = request.form['data']
-    
     json_data = json.loads(data)  
+    
     print("Arquivo recebido:", uploaded_file.filename)
     print("Dados recebidos:", json_data)
     
-    return jsonify( {"status":"success", "received_data": json_data})
-    #return redirect(url_for('index'))
+    df, y = preprocessing(uploaded_file, **json_data['processing'])
+    print(df.describe())
+    file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.filename)
+    
+    df.to_csv(file_path, index=False)
+    session['file_df'] = file_path
+    #return render_template("data.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
+    return redirect(url_for('data'))
+
+@app.route('/data', methods=['GET'])
+def data():
+    file_path = session['file_df']
+    df = pd.read_csv(file_path)
+    print(df.describe())
+    os.remove(file_path)
+    return render_template("data.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
+
+
+@app.route('/teste', methods=['GET'])
+def teste():
+    t = request.args['t']
+    f = request.files['file']
+    print(t)
+    
+    return "TESTE"

@@ -48,7 +48,7 @@ $(document).ready(function() {
 });
 
 
-function SubmitAlgorithims(url){
+async function SubmitAlgorithims(url){
 
     const options    = document.querySelector(".data-options").querySelectorAll("input");
     const file       = document.getElementById("file-upload");
@@ -95,17 +95,26 @@ function SubmitAlgorithims(url){
     formData.append('file', file.files[0]);
     formData.append('data', JSON.stringify(data));
 
-    fetch(url, {
-        method: 'POST',
-        body: formData
-    }).then(response => response.json())
-    .then(data => {
-        console.log("Sucesso:", data)
-    })
-    .catch((error) => {
-        console.log("erro:" + error)
-    }); 
-}
+    try {
+        const response = await fetch('/submit', {
+            method: 'POST',
+            body: formData  // Envia os dados e o arquivo
+        });
+
+        if (!response.ok) {
+            throw new Error('Erro ao enviar os dados');
+        }
+
+        // Trata a resposta como texto ou HTML
+        const result = await response.text();
+        
+        // Renderiza o HTML recebido na página
+        document.body.innerHTML = result;
+
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+};
 
 function updateValue(val) {
     document.getElementById('trainValue').textContent = val + '%';
