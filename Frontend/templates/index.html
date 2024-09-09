@@ -20,18 +20,25 @@
 
     <div class="container">
         <div class="form-selection">
-
             <form id="upload-form" enctype="multipart/form-data">
                 <label for="file-upload">Upload a file (.txt, .csv):</label>
-                <input onchange="" type="file" id="file-upload" name="file-upload" accept=".txt, .csv" required>
+                <input type="file" id="file-upload" name="file-upload" onchange="include_labels(event)" accept=".txt, .csv" required>
             </form>
 
             <div class="data-options">
+                <label>
+  
+                    <select id="data_labels" name="frutas">
+                        <option value="" disabled>Selecione o arquivo primeiro</option>
+                    </select>
+                </label>
+
                 <label><input type="range"    id="train"     name="train" min = 1 max=100 value="100" oninput="updateValue(this.value)"> treino: <span id="trainValue">100%</span></label>
                 <label><input type="checkbox" id="normalize" name="normalize">Normalize</label>
-                <label><input type="checkbox" id="dropNan" name="dropNan">dropNan</label>
-                <label><input type="checkbox" id="encode" name="encode">Encode Categorical Data</label>
+                <label><input type="checkbox" id="dropNan"   name="dropNan">dropNan</label>
+                <label><input type="checkbox" id="encode"    name="encode">Encode Categorical Data</label>
             </div>
+
             <form id="add-algorithm-form" style="margin-top: 20px;">
                 <label for="algorithm">Choose an algorithm:</label>
                 <select name="algorithm" id="algorithm" disabled>
@@ -52,9 +59,6 @@
             </div>
 
             <form class="form-submit">
-                <div id="labels_file">
-                    
-                </div>
                 <button type="button" class="btn-submit", onClick="SubmitAlgorithims(`{{ url_for('submit') }}`)">Submit All</button>
             </form>
             <a href="{{ url_for('teste',  t = 'olá')}}">

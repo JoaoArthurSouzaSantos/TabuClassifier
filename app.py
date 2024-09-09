@@ -7,8 +7,6 @@ from process_functions.preprocessamento import preprocessing
 # from frontend.routes import home
 
 app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
-app.secret_key = 'secret_key' 
-UPLOAD_FOLDER = './'
 # app.register_blueprint(home)
 
 selected_algorithms = []
@@ -33,6 +31,13 @@ def remove_algorithm():
     selected_algorithms = [algo for algo in selected_algorithms if algo['name'] != algorithm_name]
     return jsonify({"success": True})
 
+@app.route('/file', methods=["POST"])
+def file():
+    uploaded_file = request.files['file']
+    df = pd.read_csv(uploaded_file)
+    columns = df.columns
+    return jsonify({"columns": columns.tolist()})
+
 @app.route('/submit', methods=['POST'])
 def submit():
     # Aqui você pode processar os dados de todos os algoritmos selecionados
@@ -45,22 +50,8 @@ def submit():
     print("Dados recebidos:", json_data)
     
     df, y = preprocessing(uploaded_file, **json_data['processing'])
-    print(df.describe())
-    file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.filename)
-    
-    df.to_csv(file_path, index=False)
-    session['file_df'] = file_path
-    #return render_template("data.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
-    return redirect(url_for('data'))
-
-@app.route('/data', methods=['GET'])
-def data():
-    file_path = session['file_df']
-    df = pd.read_csv(file_path)
-    print(df.describe())
-    os.remove(file_path)
+    print(df)
     return render_template("data.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
-
 
 @app.route('/teste', methods=['GET'])
 def teste():
