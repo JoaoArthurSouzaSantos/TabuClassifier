@@ -13,8 +13,6 @@ def preprocessing(upload_file, train ,normalize, dropNan, encode):
     
     if dropNan:
        df = df.dropna()
-       
-   
         
     if encode:
         label_encoder = LabelEncoder()

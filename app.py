@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from utils import algorithms
 import pandas as pd
+import os
 import json
 from process_functions.preprocessamento import preprocessing
 # from frontend.routes import home
@@ -30,6 +31,13 @@ def remove_algorithm():
     selected_algorithms = [algo for algo in selected_algorithms if algo['name'] != algorithm_name]
     return jsonify({"success": True})
 
+@app.route('/file', methods=["POST"])
+def file():
+    uploaded_file = request.files['file']
+    df = pd.read_csv(uploaded_file)
+    columns = df.columns
+    return jsonify({"columns": columns.tolist()})
+
 @app.route('/submit', methods=['POST'])
 def submit():
     # Aqui você pode processar os dados de todos os algoritmos selecionados
@@ -42,9 +50,9 @@ def submit():
     print("Dados recebidos:", json_data)
     
     df, y = preprocessing(uploaded_file, **json_data['processing'])
+    print(df)
     return render_template("data.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
-    #return redirect(url_for('index'))
-    
+
 @app.route('/teste', methods=['GET'])
 def teste():
     t = request.args['t']

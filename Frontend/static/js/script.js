@@ -50,8 +50,9 @@ $(document).ready(function() {
 
 async function SubmitAlgorithims(url){
 
-    const options    = document.querySelector(".data-options").querySelectorAll("input");
-    const file       = document.getElementById("file-upload");
+    const file            = document.getElementById("file-upload");
+    const label           = document.getElementById("data_labels");
+    const options         = document.querySelectorAll(".data-options input");
     const algorithmsBlock = document.querySelectorAll(".algorithm-block");
 
     const processing = {};
@@ -87,6 +88,7 @@ async function SubmitAlgorithims(url){
     console.log(algorithms)
 
     const data = {
+        label: label.value,
         processing:processing,
         algorithms: algorithms
     }
@@ -118,4 +120,41 @@ async function SubmitAlgorithims(url){
 
 function updateValue(val) {
     document.getElementById('trainValue').textContent = val + '%';
+}
+
+
+async function include_labels(event){
+    const select = document.getElementById("data_labels");
+
+    file = event.target;
+
+    const formData = new FormData();
+    formData.append('file', file.files[0]);
+    
+    try {
+        const response = await fetch('/file', {
+            method: 'POST',
+            body: formData  // Envia os dados e o arquivo
+        });
+
+        if (!response.ok) {
+            throw new Error('Erro ao enviar os dados');
+        }
+
+        // Trata a resposta como texto ou HTML
+        const result = await response.json();
+        console.log(result.columns);
+        select.innerHTML = ""
+        result.columns.forEach(column => {
+
+            const option = document.createElement("option");
+
+            option.id = column;
+            option.textContent = column;
+            select.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error('Erro:', error);
+    }
 }
