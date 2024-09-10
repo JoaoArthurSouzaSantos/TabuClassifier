@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 
-def preprocessing(upload_file, train ,normalize, dropNan, encode):
+def preprocessing(upload_file, label ,train ,normalize, dropNan, encode):
     
     train = int(train)
     teste = 100 - train
@@ -22,7 +22,7 @@ def preprocessing(upload_file, train ,normalize, dropNan, encode):
             if (type(df[colum][0]) == str):
                 df[colum] = label_encoder.fit_transform(df[colum])
     
-    y = df.pop("Case Closed")
+    y = df.pop(label)
     
      
     if normalize:

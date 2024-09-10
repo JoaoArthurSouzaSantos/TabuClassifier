@@ -48,8 +48,8 @@ def submit():
     
     print("Arquivo recebido:", uploaded_file.filename)
     print("Dados recebidos:", json_data)
-    
-    df, y = preprocessing(uploaded_file, **json_data['processing'])
+   # print(json_data['label'])
+    df, y = preprocessing(uploaded_file, label=json_data['label'] ,**json_data['processing'])
     print(df)
     return render_template("data.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
 
