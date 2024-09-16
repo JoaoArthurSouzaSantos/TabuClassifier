@@ -70,21 +70,20 @@ async function SubmitAlgorithims(url){
         }
     });
 
-    const algorithms = {};
+    const algorithms = [];
     algorithmsBlock.forEach(block => {
         
-        const algorithmName = block.id;
-
+        
         const parametros = {};
+        parametros["algorithm"] =  block.id;
 
         const inputs = block.querySelectorAll("input, select");
 
         inputs.forEach(input => parametros[input.id] = input.value);
 
 
-        algorithms[algorithmName] = parametros;
+        algorithms.push(parametros)
     })
-
     console.log(algorithms)
 
     const data = {
@@ -121,7 +120,6 @@ async function SubmitAlgorithims(url){
 function updateValue(val) {
     document.getElementById('trainValue').textContent = val + '%';
 }
-
 
 async function include_labels(event){
     const select = document.getElementById("data_labels");
