@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import json
 from process_functions.preprocessamento import preprocessing
+import importlib
 # from frontend.routes import home
 
 app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
@@ -40,23 +41,40 @@ def file():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    # Aqui você pode processar os dados de todos os algoritmos selecionados
-    # Por exemplo, renderizar uma página de resumo ou salvar em um banco de dados
+    # Processar o arquivo enviado e os dados do formulário
     uploaded_file = request.files['file']
     data = request.form['data']
-    json_data = json.loads(data)  
+    json_data = json.loads(data)
     
     print("Arquivo recebido:", uploaded_file.filename)
     print("Dados recebidos:", json_data)
-   # print(json_data['label'])
-    df, y = preprocessing(uploaded_file, label=json_data['label'] ,**json_data['processing'])
-    print(df)
-    return render_template("data.html", tables=[df.to_html(classes='data')], titles=df.columns.values)
-
-@app.route('/teste', methods=['GET'])
-def teste():
-    t = request.args['t']
-    f = request.files['file']
-    print(t)
     
-    return "TESTE"
+    # Pré-processar os dados com base no label e parâmetros de processamento
+    normalizados = preprocessing(uploaded_file, label=json_data['label'], **json_data['processing'])
+
+    # Obter a lista de algoritmos
+    algorithms = json_data["algorithms"]
+    
+    for algorithm in algorithms:
+        # Construir o caminho do módulo
+        ALGORITHMS_PATH = 'algoritmos'
+        module_path = f'{ALGORITHMS_PATH}.{algorithm["algorithm"]}'
+        
+        # Importar o módulo dinamicamente
+        try:
+            module = importlib.import_module(module_path)
+        except ModuleNotFoundError as e:
+            print(f"Erro ao importar o módulo {module_path}: {e}")
+            continue
+        
+        # Verificar se a função desejada está no módulo
+        if hasattr(module, 'run'):
+            function = getattr(module, 'run')
+            # Passar parâmetros para a função
+            del algorithm['algorithm']
+            
+            result = function(normalizados, algorithm)
+            print(result)
+        else:
+            print(f"Função 'run' não encontrada no módulo {module_path}")
+    return render_template("data.html", tables=[normalizados["x_train"].to_html(classes='data')], titles=normalizados["x_train"].columns.values)
