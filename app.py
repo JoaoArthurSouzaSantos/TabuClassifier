@@ -57,7 +57,7 @@ def submit():
     
     for algorithm in algorithms:
         # Construir o caminho do módulo
-        ALGORITHMS_PATH = 'algoritmos'
+        ALGORITHMS_PATH = 'algorithms'
         module_path = f'{ALGORITHMS_PATH}.{algorithm["algorithm"]}'
         
         # Importar o módulo dinamicamente
