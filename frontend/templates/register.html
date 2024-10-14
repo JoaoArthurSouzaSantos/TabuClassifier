@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="flex w-full h-screen bg-black shadow-lg rounded-lg overflow-hidden">
+        <!-- Left side with background image -->
+        <div class="w-1/2 bg-gradient-to-br from-blue-600 to-teal-500 hidden md:block">
+        </div>
+
+        <!-- Right side with form -->
+        <div class="w-full md:w-1/2 p-8">
+            <h2 class="text-3xl font-bold text-center text-white mb-4">Cadastre-se</h2>
+            <p class="text-center text-gray-400 mb-6">Já tem uma conta? <a href="#" class="text-blue-500">Faça login</a></p>
+            
+            <form action="#" method="POST">
+                <div class="mb-4">
+                    <label for="nome" class="block text-white">Nome Completo</label>
+                    <div class="relative">
+                        <input type="text" id="nome" name="nome" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Digite seu nome e sobrenome" required>
+                        <span class="absolute inset-y-0 left-3 flex items-center text-gray-500">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 4a4 4 0 11-8 0 4 4 0 018 0zm-2 6a5.978 5.978 0 00-4.918 2.574A6.002 6.002 0 0110 18a6.002 6.002 0 014.918-5.426A5.978 5.978 0 0010 10z" />
+                            </svg> -->
+                        </span>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-white">Email</label>
+                    <div class="relative">
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Digite seu email" required>
+                        <span class="absolute inset-y-0 left-3 flex items-center text-gray-500">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M2.94 2.94A10 10 0 1117.06 17.06 10 10 0 012.94 2.94zM10 18a8 8 0 100-16 8 8 0 000 16zm-3-9h6V9H7v1zm0 2h6v-1H7v1z" />
+                            </svg> -->
+                        </span>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-white">Senha</label>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Digite sua senha" required>
+                        <span class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                <path fill-rule="evenodd" d="M.458 5.522A10 10 0 0117.74 17.72l-1.533-1.533a8 8 0 10-11.211-11.21L.458 5.522zM10 6a4 4 0 00-4 4 4 4 0 004 4 4 4 0 004-4 4 4 0 00-4-4z" clip-rule="evenodd" />
+                            </svg> -->
+                        </span>
+                        <div class="mt-1 text-xs text-blue-400">
+                            <p>Sua senha deve ter pelo menos:</p>
+                            <ul class="list-disc pl-4">
+                                <li>8 caracteres</li>
+                                <li>1 letra maiúscula</li>
+                                <li>1 número</li>
+                                <li>1 caractere especial (Ex: #@$%^&*)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" id="termos" name="termos" class="form-checkbox h-4 w-4 text-blue-600">
+                    <label for="termos" class="ml-2 text-white text-sm">
+                        Eu concordo com os <a href="#" class="text-blue-400">Termos de Uso</a> e a <a href="#" class="text-blue-400">Política de Privacidade</a>. 
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">Cadastrar</button>
+            </form>
+
+            <div class="flex items-center justify-between mt-6">
+                <span class="border-b w-1/5 lg:w-1/4"></span>
+                <span class="text-sm text-gray-600">Ou</span>
+                <span class="border-b w-1/5 lg:w-1/4"></span>
+            </div>
+
+            <button class="flex items-center justify-center w-full mt-4 border border-gray-300 text-white py-2 px-4 rounded-md hover:bg-gray-100 transition">
+                <img src="https://img.icons8.com/color/16/000000/google-logo.png" class="mr-2"/>
+                Continue com o Google
+            </button>
+        </div>
+    </div>
+</body>
+</html>

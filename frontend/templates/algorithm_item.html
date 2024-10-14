@@ -1,0 +1,37 @@
+<div class="algorithm-block p-6 bg-gray-800 rounded-lg shadow-md mb-6" id="{{ algorithm.name }}">
+    <h3 class="text-2xl font-bold text-white mb-4">{{ algorithm.name }}</h3>
+    
+    {% for param in algorithm.parameters %}
+        <div class="form-group mb-4">
+            <label for="{{ param.name }}" class="block text-white font-semibold mb-2">{{ param.name }}:</label>
+            
+            {% if param.type == "input" %}
+                <input 
+                    type="text" 
+                    name="{{ algorithm.name }}_{{ param.name }}" 
+                    id="{{ param.name }}" 
+                    value="{{ param.value }}" 
+                    class="w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                
+            {% elif param.type == "select" %}
+                <select 
+                    name="{{ algorithm.name }}_{{ param.name }}" 
+                    id="{{ param.name }}" 
+                    class="w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                    {% for option in param.options %}
+                        <option value="{{ option }}" class="bg-gray-800 text-white">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+    {% endfor %}
+    
+    <button 
+        class="remove-algorithm w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition"
+        data-name="{{ algorithm.name }}"
+    >
+        Remove
+    </button>
+</div>
