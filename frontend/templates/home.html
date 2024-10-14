@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-blue-300 to-blue-500 font-sans">
+    <!-- Navbar -->
+    <header class="bg-white p-4 shadow-sm flex justify-between items-center">
+        <div>
+          <!-- Aumenta o tamanho da logo com transform scale -->
+          <img src="/static/images/logo.png" alt="Logo" class="img-fluid" style="height: 50px; transform: scale(1.5);">
+        </div>
+        <nav>
+            <ul class="flex space-x-8 text-lg">
+                <li><a href="/software" class="text-gray-600 hover:text-black">Software</a></li>
+                <li><a href="/sobre-nos" class="text-gray-600 hover:text-black">Sobre nós</a></li>
+                <li><a href="/Parceiros" class="text-gray-600 hover:text-black">Parceiros</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="{{ url_for('login') }}" class="border border-black py-2 px-4 rounded-md hover:bg-gray-100">ENTRAR</a>
+            <a href="{{ url_for('register') }}" class="border border-black py-1.5 px-3 rounded-md bg-blue-900 text-white hover:bg-gray-100">CRIAR CONTA</a>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="flex flex-col items-center justify-center h-screen text-center text-white">
+        <h1 class="text-4xl font-bold mb-6 text-black">
+            Automatize seus processos com precisão e 
+            explore insights em tempo real com o Catador, 
+            o software que integra algoritmos classificadores e 
+            transforma dados em dashboards interativos
+        </h1>
+        <div class="flex space-x-4">
+            <a href="#" class="bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700">Processar dados agora</a>
+            <a href="#" class="border border-black text-black py-3 px-6 rounded-md hover:bg-gray-200">Contato</a>
+        </div>
+    </main>
+</body>
+</html>

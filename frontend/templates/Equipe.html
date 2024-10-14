@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <header class="bg-white p-4 shadow-sm flex justify-between items-center">
+        <div>
+            <a href="/home"><img src="/static/images/logo.png" alt="Logo" class="img-fluid" style="height: 50px; transform: scale(1.5);"></a>
+        </div>
+        <nav>
+            <ul class="flex space-x-8 text-lg">
+                <li><a href="/software" class="text-gray-600 hover:text-black">Software</a></li>
+                <li><a href="/sobre-nos" class="text-gray-600 hover:text-black">Sobre nós</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-black">ppgmcs</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-black">Manual</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="/login" class="border border-black py-2 px-4 rounded-md hover:bg-gray-100">ENTRAR</a>
+            <a href="#" class="border border-black py-1.5 px-3 rounded-md bg-blue-900 text-white hover:bg-gray-100">CRIAR CONTA</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12 px-6 max-w-7xl mx-auto">
+        <!-- Project History Section -->
+        <section class="mb-12">
+            <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">Nossa História</h1>
+            <p class="text-lg text-gray-600 text-center mb-6">
+                O projeto começou com a missão de criar um software que pudesse auxiliar pesquisadores e empresas a
+                processar dados complexos de maneira fácil e intuitiva. Com o passar do tempo, nossa equipe multidisciplinar
+                uniu forças para construir uma ferramenta poderosa que transforma dados em insights visuais.
+            </p>
+        </section>
+
+        <!-- Team Section -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Conheça a Equipe</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <img src="/static/images/team1.jpg" alt="Foto de Ana" class="w-32 h-32 mx-auto rounded-full mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">Ana Souza</h3>
+                    <p class="text-gray-600">Engenheira de Software</p>
+                    <p class="mt-4 text-gray-600">Ana é responsável pela arquitetura do sistema e desenvolvimento de funcionalidades. Com vasta experiência em back-end, ela lidera a criação de soluções escaláveis e seguras.</p>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <img src="/static/images/team2.jpg" alt="Foto de João" class="w-32 h-32 mx-auto rounded-full mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">João Pereira</h3>
+                    <p class="text-gray-600">Cientista de Dados</p>
+                    <p class="mt-4 text-gray-600">João é o cérebro por trás dos algoritmos classificadores. Ele utiliza as mais recentes tecnologias em Machine Learning para garantir a precisão na análise de dados complexos.</p>
+                </div>
+                <!-- Team Member 3 -->
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <img src="/static/images/team3.jpg" alt="Foto de Carla" class="w-32 h-32 mx-auto rounded-full mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">Carla Menezes</h3>
+                    <p class="text-gray-600">Designer de Interface</p>
+                    <p class="mt-4 text-gray-600">Carla é responsável por garantir que a experiência do usuário seja agradável e eficiente. Ela projeta interfaces intuitivas, focadas em usabilidade e acessibilidade.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
