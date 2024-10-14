@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parceiros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-blue-300 to-blue-500 font-sans text-gray-800">
+    <!-- Navbar -->
+    <header class="bg-white p-4 shadow-sm flex justify-between items-center">
+        <div>
+          <img src="/static/images/logo.png" alt="Logo" class="img-fluid" style="height: 50px; transform: scale(1.5);">
+        </div>
+        <nav>
+            <ul class="flex space-x-8 text-lg">
+                <li><a href="/software" class="text-gray-600 hover:text-black">Software</a></li>
+                <li><a href="/sobre-nos" class="text-gray-600 hover:text-black">Sobre nós</a></li>
+                <li><a href="/parceiros" class="text-gray-600 hover:text-black">Parceiros</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="{{ url_for('login') }}" class="border border-black py-2 px-4 rounded-md hover:bg-gray-100">ENTRAR</a>
+            <a href="{{ url_for('register') }}" class="border border-black py-1.5 px-3 rounded-md bg-blue-900 text-white hover:bg-gray-100">CRIAR CONTA</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-10">
+        <h1 class="text-4xl font-bold mb-8 text-center text-black">Nossos Parceiros</h1>
+
+        <section class="bg-white p-6 rounded-md shadow-lg mb-8">
+            <h2 class="text-3xl font-semibold mb-4">Conheça o PPGMCS</h2>
+            <p class="mb-4">O Programa de Pós-Graduação em Modelagem Computacional e Sistemas (PPGMCS) da UNIMONTES integra disciplinas e especialidades, com foco no desenvolvimento de processos e sistemas artificiais complexos. Seu objetivo é contribuir para a consolidação do setor industrial nacional, especialmente nas áreas de manufatura e operação de plantas produtivas.</p>
+            <p class="mb-4">Ao priorizar a concepção de produtos tecnológicos, o PPGMCS promove um desenvolvimento contínuo que vai desde a ideia inicial até a operação dos sistemas.</p>
+            <h3 class="text-2xl font-semibold mt-6">Áreas de Atuação</h3>
+            <ul class="list-disc ml-5 mb-4">
+                <li>Engenharias</li>
+                <li>Computação</li>
+                <li>Ciências Exatas</li>
+                <li>Ciências Agrárias</li>
+                <li>Ciências da Saúde</li>
+            </ul>
+            <h3 class="text-2xl font-semibold mt-6">Linhas de Pesquisa</h3>
+            <p class="mb-4"><strong>Inteligência Computacional, Otimização e suas Aplicações:</strong> Desenvolvimento de novos métodos e algoritmos para a solução de problemas complexos, como planejamento de rotas, alocação de recursos, detecção de falhas, entre outros. Esses estudos buscam melhorar a eficiência de processos industriais e empresariais.</p>
+            <p class="mb-4"><strong>Computação Científica e Modelagem de Sistemas:</strong> Modelagem de sistemas complexos com comportamento não-linear, utilizando técnicas modernas de computação de alto desempenho. Aplicações incluem desde ciências físicas até engenharia.</p>
+        </section>
+
+        <section class="bg-white p-6 rounded-md shadow-lg mb-8">
+            <h2 class="text-3xl font-semibold mb-4">O Laboratório de IA da Unimontes (LICA)</h2>
+            <p class="mb-4">O LICA realiza pesquisas interdisciplinares em áreas como aprendizado de máquina, inteligência computacional, otimização mono e multiobjetivo. O foco é desenvolver soluções teóricas e práticas para problemas complexos de alto custo computacional.</p>
+            <h3 class="text-2xl font-semibold mt-6">Nossas Prioridades</h3>
+            <ul class="list-disc ml-5 mb-4">
+                <li>Resolução de problemas computacionais complexos</li>
+                <li>Publicação de artigos científicos em tecnologia</li>
+                <li>Desenvolvimento de soluções inovadoras em engenharia e ciências da informação</li>
+            </ul>
+            <p class="mb-4"><strong>Fundado em 2024</strong>, o LICA é uma extensão do Programa de Pós-Graduação em Modelagem Computacional da UNIMONTES, criado para resolver problemas complexos e promover a inovação tecnológica.</p>
+        </section>
+    </main>
+</body>
+</html>

@@ -38,8 +38,11 @@ def sobre_nos():
 
 @app.route('/software', methods=['GET', 'POST'])
 def software():
-    print("Acessando a página Software")  # Log para depuração
     return render_template('Software.html')
+
+@app.route('/parceiros', methods=['GET', 'POST'])
+def parceiros():
+    return render_template('parceiros.html')
 
 @app.route('/auth/login', methods=['GET', 'POST'])
 def login():
