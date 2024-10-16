@@ -5,11 +5,9 @@ import os
 import importlib
 import json
 from process_functions.preprocessamento import preprocessing
-import importlib
-from utils import algorithms 
-# from frontend.routes import home
+from utils import algorithms
 
-app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
+app = Flask(_name_, template_folder="frontend/templates", static_folder="frontend/static")
 app.secret_key = 'your_secret_key'  # Necessário para usar sessões
 
 # Configure MySQL connection
@@ -25,7 +23,7 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)  # Senha não mais hash
 
-    def __init__(self, username, password):
+    def _init_(self, username, password):
         self.username = username
         self.password = password  # Senha armazenada em texto simples
 
@@ -40,11 +38,8 @@ def sobre_nos():
 
 @app.route('/software', methods=['GET', 'POST'])
 def software():
+    print("Acessando a página Software")  # Log para depuração
     return render_template('Software.html')
-
-@app.route('/parceiros', methods=['GET', 'POST'])
-def parceiros():
-    return render_template('parceiros.html')
 
 @app.route('/auth/login', methods=['GET', 'POST'])
 def login():
@@ -67,7 +62,6 @@ def login():
 
 @app.route('/index')
 def index():
-    
     return render_template('index.html', algorithms=algorithms, selected_algorithms=selected_algorithms)
 
 @app.route('/auth/register', methods=['GET', 'POST'])
@@ -127,32 +121,62 @@ def submit():
     print("Arquivo recebido:", uploaded_file.filename)
     print("Dados recebidos:", json_data)
     
-    # Pré-processar os dados com base no label e parâmetros de processamento
+    # Pré-processar os dados
     normalizados = preprocessing(uploaded_file, label=json_data['label'], **json_data['processing'])
 
     # Obter a lista de algoritmos
     algorithms = json_data["algorithms"]
     
+    # Estruturar os resultados para diferentes métricas
+    accuracy_results = []
+    f1_score_results = []
+    recall_results = []
+    precision_results = []
+    algorithm_names = []
+    algorithm_time = []
+    
     for algorithm in algorithms:
         # Construir o caminho do módulo
-        ALGORITHMS_PATH = 'algoritmos'
+        ALGORITHMS_PATH = 'algorithms'
         module_path = f'{ALGORITHMS_PATH}.{algorithm["algorithm"]}'
         
-        # Importar o módulo dinamicamente
         try:
             module = importlib.import_module(module_path)
         except ModuleNotFoundError as e:
             print(f"Erro ao importar o módulo {module_path}: {e}")
             continue
         
-        # Verificar se a função desejada está no módulo
         if hasattr(module, 'run'):
             function = getattr(module, 'run')
-            # Passar parâmetros para a função
             del algorithm['algorithm']
             
+            # Executar a função e armazenar o resultado
             result = function(normalizados, algorithm)
-            print(result)
-        else:
-            print(f"Função 'run' não encontrada no módulo {module_path}")
-    return render_template("data.html", tables=[normalizados["x_train"].to_html(classes='data')], titles=normalizados["x_train"].columns.values)
+            
+            # Suponha que o resultado contenha as métricas (ajuste de acordo com seus dados reais)
+            accuracy_results.append(result['accuracy'])
+            f1_score_results.append(result['f1_score'])
+            recall_results.append(result['recall'])
+            precision_results.append(result['precision'])
+            algorithm_names.append(result['name'])
+            algorithm_time.append(result['execution_time'])
+
+    # Passar os resultados para o template
+    return render_template(
+        "results.html", 
+        accuracy=accuracy_results, 
+        f1_score=f1_score_results, 
+        recall=recall_results, 
+        precision=precision_results, 
+        algorithms=algorithm_names,
+        time=algorithm_time
+    )
+
+
+    #return render_template("data.html", tables=[normalizados["x_train"].to_html(classes='data')], titles=normalizados["x_train"].columns.values)
+
+if _name_ == '_main_':
+    app.app_context().push()
+    app.debug = True
+    db.create_all()  # Create tables in MySQL
+    app.run(host='0.0.0.0')
