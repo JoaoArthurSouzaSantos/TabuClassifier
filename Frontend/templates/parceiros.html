@@ -14,14 +14,14 @@
         </div>
         <nav>
             <ul class="flex space-x-8 text-lg">
-                <li><a href="/software" class="text-gray-600 hover:text-black">Software</a></li>
-                <li><a href="/sobre-nos" class="text-gray-600 hover:text-black">Sobre nós</a></li>
-                <li><a href="/parceiros" class="text-gray-600 hover:text-black">Parceiros</a></li>
+                <li><a href="{{ url_for('route_main.software') }}" class="text-gray-600 hover:text-black">Software</a></li>
+                <li><a href="{{ url_for('route_main.sobre_nos') }}" class="text-gray-600 hover:text-black">Sobre nós</a></li>
+                <li><a href="{{ url_for('route_main.parceiros') }}" class="text-gray-600 hover:text-black">Parceiros</a></li>
             </ul>
         </nav>
         <div>
-            <a href="{{ url_for('login') }}" class="border border-black py-2 px-4 rounded-md hover:bg-gray-100">ENTRAR</a>
-            <a href="{{ url_for('register') }}" class="border border-black py-1.5 px-3 rounded-md bg-blue-900 text-white hover:bg-gray-100">CRIAR CONTA</a>
+            <a href="{{ url_for('route_auth.login') }}" class="border border-black py-2 px-4 rounded-md hover:bg-gray-100">ENTRAR</a>
+            <a href="{{ url_for('route_auth.register') }}" class="border border-black py-1.5 px-3 rounded-md bg-blue-900 text-white hover:bg-gray-100">CRIAR CONTA</a>
         </div>
     </header>
 

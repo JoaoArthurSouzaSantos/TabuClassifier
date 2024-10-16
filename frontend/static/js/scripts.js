@@ -4,7 +4,7 @@ $(document).ready(function() {
         var algorithm = $('#algorithm').val();
 
         $.ajax({
-            url: '/add_algorithm',
+            url: '/algorithm/add_algorithm',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({algorithm: algorithm}),
@@ -27,7 +27,7 @@ $(document).ready(function() {
         var elementToRemove = $('#' + algorithmName);
 
         $.ajax({
-            url: '/remove_algorithm',
+            url: '/algorithm/remove_algorithm',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({algorithm: algorithmName}),
@@ -97,7 +97,7 @@ async function SubmitAlgorithims(url){
     formData.append('data', JSON.stringify(data));
 
     try {
-        const response = await fetch('/submit', {
+        const response = await fetch(url, {
             method: 'POST',
             body: formData  // Envia os dados e o arquivo
         });
@@ -129,7 +129,7 @@ function include_labels(event) {
     formData.append('file', file);
 
     $.ajax({
-        url: '/file',
+        url: '/algorithm/file',
         type: 'POST',
         data: formData,
         processData: false,  // Impede que o jQuery processe os dados

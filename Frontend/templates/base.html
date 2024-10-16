@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
+    <title>{}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-b from-blue-300 to-blue-500 font-sans">
@@ -26,17 +26,6 @@
         </div>
     </header>
     <!-- Main Content -->
-    <main class="flex flex-col items-center justify-center h-screen text-center text-white">
-        <h1 class="text-4xl font-bold mb-6 text-black">
-            Automatize seus processos com precisão e 
-            explore insights em tempo real com o Catador, 
-            o software que integra algoritmos classificadores e 
-            transforma dados em dashboards interativos
-        </h1>
-        <div class="flex space-x-4">
-            <a href="#" class="bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700">Processar dados agora</a>
-            <a href="#" class="border border-black text-black py-3 px-6 rounded-md hover:bg-gray-200">Contato</a>
-        </div>
-    </main>
+    {{content}}
 </body>
 </html>
