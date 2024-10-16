@@ -1,21 +1,95 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
-from utils import algorithms
+from flask import Flask, url_for, render_template, request, redirect, session, jsonify
+from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 import os
+import importlib
 import json
 from process_functions.preprocessamento import preprocessing
 import importlib
+from utils import algorithms 
 # from frontend.routes import home
 
 app = Flask(__name__, template_folder="frontend/templates", static_folder="frontend/static")
-# app.register_blueprint(home)
+app.secret_key = 'your_secret_key'  # Necessário para usar sessões
+
+# Configure MySQL connection
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/catador'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 selected_algorithms = []
 
-#criar um arquivo só pra rotas
-@app.route('/')
+class User(db.Model):
+    """ Create user table"""
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(80), nullable=False)  # Senha não mais hash
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password  # Senha armazenada em texto simples
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    return render_template('home.html')
+
+@app.route('/sobre-nos', methods=['GET', 'POST'])
+def sobre_nos():
+    print("Acessando a página Sobre Nós")  # Log para depuração
+    return render_template('Equipe.html')
+
+@app.route('/software', methods=['GET', 'POST'])
+def software():
+    return render_template('Software.html')
+
+@app.route('/parceiros', methods=['GET', 'POST'])
+def parceiros():
+    return render_template('parceiros.html')
+
+@app.route('/auth/login', methods=['GET', 'POST'])
+def login():
+    """Login Form"""
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        name = request.form['username']
+        passw = request.form['password']
+        # Verificando diretamente no banco de dados se o usuário e a senha são válidos
+        data = User.query.filter_by(username=name, password=passw).first()
+
+        if data:
+            session['logged_in'] = True
+            return redirect(url_for('index'))  # Redireciona para a página principal
+        else:
+            # Se login inválido, retorna a página de login com mensagem de erro
+            return render_template('login.html', error='Nome de usuário ou senha inválidos')
+
+
+@app.route('/index')
 def index():
+    
     return render_template('index.html', algorithms=algorithms, selected_algorithms=selected_algorithms)
+
+@app.route('/auth/register', methods=['GET', 'POST'])
+def register():
+    """Register Form"""
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if User.query.filter_by(username=username).first():
+            return "User already exists", 400  # Evitar duplicação de usuários
+        new_user = User(username=username, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('login'))
+    return render_template('register.html')
+
+
+@app.route("/logout")
+def logout():
+    """Logout Form"""
+    session['logged_in'] = False
+    return redirect(url_for('login'))
 
 @app.route('/add_algorithm', methods=['POST'])
 def add_algorithm():
@@ -35,9 +109,13 @@ def remove_algorithm():
 @app.route('/file', methods=["POST"])
 def file():
     uploaded_file = request.files['file']
-    df = pd.read_csv(uploaded_file)
-    columns = df.columns
-    return jsonify({"columns": columns.tolist()})
+    try:
+        df = pd.read_csv(uploaded_file)
+        columns = df.columns
+        return jsonify({"columns": columns.tolist()})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/submit', methods=['POST'])
 def submit():

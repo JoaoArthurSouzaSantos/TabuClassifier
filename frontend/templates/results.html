@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados dos Algoritmos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold text-center mb-8">Comparação dos Resultados dos Algoritmos</h1>
+
+        <!-- Gráfico com todas as métricas juntas -->
+        <div class="bg-white-800 p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold text-center mb-4">Comparação Geral das Métricas</h2>
+            <canvas id="combinedChart"></canvas>
+            <div class="text-center mt-4">
+                <button onclick="downloadChart('combinedChart')" class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition">Baixar Gráfico</button>
+            </div>
+        </div>
+
+        <!-- Dashboard de métricas individuais -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold text-center mb-4">Precisão dos Algoritmos</h2>
+                <canvas id="precisionChart"></canvas>
+                <div class="text-center mt-4">
+                    <button onclick="downloadChart('precisionChart')" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">Baixar Gráfico</button>
+                </div>
+            </div>
+
+            <div class="bg-white-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold text-center mb-4">F1-Score dos Algoritmos</h2>
+                <canvas id="f1ScoreChart"></canvas>
+                <div class="text-center mt-4">
+                    <button onclick="downloadChart('f1ScoreChart')" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">Baixar Gráfico</button>
+                </div>
+            </div>
+
+            <div class="bg-white-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold text-center mb-4">Recall dos Algoritmos</h2>
+                <canvas id="recallChart"></canvas>
+                <div class="text-center mt-4">
+                    <button onclick="downloadChart('recallChart')" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">Baixar Gráfico</button>
+                </div>
+            </div>
+
+            <div class="bg-white-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-semibold text-center mb-4">Acurácia dos Algoritmos</h2>
+                <canvas id="accuracyChart"></canvas>
+                <div class="text-center mt-4">
+                    <button onclick="downloadChart('accuracyChart')" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">Baixar Gráfico</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center mt-8">
+            <a href="{{ url_for('index') }}" class="bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition">Voltar</a>
+        </div>
+    </div>
+
+    <!-- Script para gerar gráficos com dados dinâmicos -->
+    <script>
+        // Pegar os dados passados pela URL com Jinja2
+        const algorithmNames = JSON.parse('{{ algorithms | tojson | safe }}');
+        const precisionData = JSON.parse('{{ precision | tojson | safe }}');
+        const f1ScoreData = JSON.parse('{{ f1_score | tojson | safe }}');
+        const recallData = JSON.parse('{{ recall | tojson | safe }}');
+        const accuracyData = JSON.parse('{{ accuracy | tojson | safe }}');
+
+        // Função para baixar gráficos
+        function downloadChart(chartId) {
+            const link = document.createElement('a');
+            link.href = document.getElementById(chartId).toDataURL('image/png');
+            link.download = chartId + '.png';
+            link.click();
+        }
+
+        // Gráfico de Métricas Combinadas
+        const combinedCtx = document.getElementById('combinedChart').getContext('2d');
+        new Chart(combinedCtx, {
+            type: 'bar',
+            data: {
+                labels: algorithmNames,
+                datasets: [
+                    {
+                        label: 'Precisão',
+                        data: precisionData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'F1-Score',
+                        data: f1ScoreData,
+                        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Recall',
+                        data: recallData,
+                        backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Acurácia',
+                        data: accuracyData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Gráficos individuais
+        const precisionCtx = document.getElementById('precisionChart').getContext('2d');
+        new Chart(precisionCtx, {
+            type: 'bar',
+            data: {
+                labels: algorithmNames,
+                datasets: [{
+                    label: 'Precisão',
+                    data: precisionData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const f1ScoreCtx = document.getElementById('f1ScoreChart').getContext('2d');
+        new Chart(f1ScoreCtx, {
+            type: 'bar',
+            data: {
+                labels: algorithmNames,
+                datasets: [{
+                    label: 'F1-Score',
+                    data: f1ScoreData,
+                    backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const recallCtx = document.getElementById('recallChart').getContext('2d');
+        new Chart(recallCtx, {
+            type: 'bar',
+            data: {
+                labels: algorithmNames,
+                datasets: [{
+                    label: 'Recall',
+                    data: recallData,
+                    backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const accuracyCtx = document.getElementById('accuracyChart').getContext('2d');
+        new Chart(accuracyCtx, {
+            type: 'bar',
+            data: {
+                labels: algorithmNames,
+                datasets: [{
+                    label: 'Acurácia',
+                    data: accuracyData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

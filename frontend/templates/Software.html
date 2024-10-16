@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <header class="bg-white p-4 shadow-sm flex justify-between items-center">
+        <div>
+          <a href="/home"><img src="/static/images/logo.png" alt="Logo" class="img-fluid" style="height: 50px; transform: scale(1.5);"></a>
+        </div>
+        <nav>
+            <ul class="flex space-x-8 text-lg">
+                <li><a href="/software" class="text-gray-600 hover:text-black">Software</a></li>
+                <li><a href="/sobre-nos" class="text-gray-600 hover:text-black">Sobre nós</a></li>
+                <li><a href="/parceiros" class="text-gray-600 hover:text-black">Parceiros</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="/login" class="border border-black py-2 px-4 rounded-md hover:bg-gray-100">ENTRAR</a>
+            <a href="#" class="border border-black py-1.5 px-3 rounded-md bg-blue-900 text-white hover:bg-gray-100">CRIAR CONTA</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12 px-6 max-w-7xl mx-auto">
+        <!-- Software Description Section -->
+        <section class="mb-12">
+            <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">O que é o Catador?</h1>
+            <p class="text-lg text-gray-600 text-center mb-6">
+                O Catador é um software inovador que automatiza o processamento de grandes volumes de dados e os transforma em dashboards interativos. Com a integração de algoritmos classificadores, o Catador ajuda você a obter insights em tempo real, facilitando a tomada de decisões estratégicas.
+            </p>
+        </section>
+
+        <!-- Key Features Section -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Funcionalidades Principais</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Classificação de Dados</h3>
+                    <p class="text-gray-600">Nosso sistema usa algoritmos avançados para classificar e organizar seus dados automaticamente, permitindo análises rápidas e precisas.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Dashboards Interativos</h3>
+                    <p class="text-gray-600">Transforme seus dados em gráficos e dashboards que podem ser personalizados e compartilhados com sua equipe em tempo real.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Integração com outras plataformas</h3>
+                    <p class="text-gray-600">O Catador pode ser facilmente integrado com outras ferramentas de BI e plataformas de análise, facilitando a incorporação de seus dados em fluxos de trabalho existentes.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

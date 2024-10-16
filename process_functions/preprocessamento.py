@@ -4,6 +4,11 @@ from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 def preprocessing(upload_file, label ,train ,normalize, dropNan, encode):    
     
     df=pd.read_csv(upload_file)
+    df = df.sample(frac=1).reset_index(drop=True)
+
+    train_size =  int(train) / 100
+    print(f"Size para treino: {train_size}")
+    train = int(train_size * len(df))
     
     train_size =  int(train) / 100
     print(f"Size para treino: {train_size}")
