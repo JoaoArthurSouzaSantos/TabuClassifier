@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
-
+from sklearn.model_selection import train_test_split
 def preprocessing(upload_file, label ,train ,normalize, dropNan, encode):    
     
     df=pd.read_csv(upload_file)
@@ -29,10 +29,15 @@ def preprocessing(upload_file, label ,train ,normalize, dropNan, encode):
         
         df=pd.DataFrame(scaled_data,columns=df.columns)
         
-    x_train = df[:train]
+    X=df.to_numpy()
+    y=y.to_numpy()
+    x_train,x_test, y_train, y_test = train_test_split(X,y, train_size=train_size,shuffle=True,random_state=42) 
+   
+    """ 
+   x_train = df[:train]
     y_train = y[:train]
 
     x_test  = df[train:]
     y_test  = y[train:]
-    
+    """
     return {"x_train":x_train, "y_train": y_train, "x_test": x_test, "y_test": y_test}
