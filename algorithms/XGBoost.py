@@ -1,6 +1,6 @@
 import logging
+import xgboost as xgb
 import time  # Importando o módulo time para medir o tempo de execução
-from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, precision_score, f1_score, recall_score, confusion_matrix
 
 # Configurar logging
@@ -32,7 +32,7 @@ def run(norm, paramets):
         logging.info(f"Parâmetros tratados: {params}")
         
         # Instanciar o modelo RandomForestClassifier passando os parâmetros tratados diretamente
-        model = SVC(**params)  # Descompactar os parâmetros no modelo
+        model = xgb.XGBClassifier(**params)  # Descompactar os parâmetros no modelo
         
         # Treinar o modelo
         model.fit(norm["x_train"], norm["y_train"])

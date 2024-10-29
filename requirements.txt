@@ -1,4 +1,5 @@
 blinker==1.8.2
+catboost==1.2.7
 click==8.1.7
 colorama==0.4.6
 Flask==3.0.3
@@ -7,6 +8,7 @@ greenlet==3.1.1
 itsdangerous==2.2.0
 Jinja2==3.1.4
 joblib==1.4.2
+lightgbm==4.5.0
 MarkupSafe==2.1.5
 numpy==2.1.2
 pandas==2.2.3
@@ -22,3 +24,4 @@ threadpoolctl==3.5.0
 typing_extensions==4.12.2
 tzdata==2024.2
 Werkzeug==3.0.3
+xgboost==2.1.2

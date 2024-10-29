@@ -34,8 +34,9 @@ def register():
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('login'))
+        return redirect(url_for('route_auth.login'))
     return render_template('register.html')
+
 
 
 @app_auth.route("/logout")

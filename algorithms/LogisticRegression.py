@@ -1,5 +1,6 @@
 import logging
 from sklearn.linear_model import LogisticRegression
+import time  # Importando o módulo time para medir o tempo de execução
 from sklearn.metrics import accuracy_score, precision_score, f1_score, recall_score, confusion_matrix
 
 # Configurar logging
@@ -20,14 +21,17 @@ def tratar_strings(params):
     return params
 
 def run(norm, paramets):
-    """Executa o LogisticRegression com os parâmetros fornecidos e os dados normalizados."""
+    """Executa o RandomForestClassifier com os parâmetros fornecidos e os dados normalizados."""
     try:
+        # Iniciar a contagem de tempo
+        start_time = time.time()
+        
         # Tratar e validar os parâmetros
         params = tratar_strings(paramets)
 
         logging.info(f"Parâmetros tratados: {params}")
         
-        # Instanciar o modelo LogisticRegression passando os parâmetros tratados diretamente
+        # Instanciar o modelo RandomForestClassifier passando os parâmetros tratados diretamente
         model = LogisticRegression(**params)  # Descompactar os parâmetros no modelo
         
         # Treinar o modelo
@@ -39,21 +43,26 @@ def run(norm, paramets):
         # Calcular matriz de confusão e outras métricas
         accuracy = accuracy_score(norm["y_test"], y_pred)
         precision = precision_score(norm["y_test"], y_pred, average='macro')
-        recall = recall_score(norm["y_test"], y_pred, average='macro')  # Adicionando o cálculo de recall
+        recall = recall_score(norm["y_test"], y_pred, average='macro')
         f1 = f1_score(norm["y_test"], y_pred, average='macro')
+        
+        # Calcular o tempo de execução
+        execution_time = time.time() - start_time
 
         logging.info(f"Acurácia: {accuracy}")
         logging.info(f"Precisão: {precision}")
         logging.info(f"Recall: {recall}")
         logging.info(f"F1-Score: {f1}")
+        logging.info(f"Tempo de execução: {execution_time:.4f} segundos")
 
         # Retornar resultados
         return {
-            'name': 'Logistic Regression',  # Nome do algoritmo
+            'name': 'Random Forest',  # Nome do algoritmo
             'accuracy': accuracy,
             'precision': precision,
             'recall': recall,
-            'f1_score': f1
+            'f1_score': f1,
+            'execution_time': execution_time  # Adicionando o tempo de execução ao retorno
         }
     
     except ValueError as ve:
