@@ -1,6 +1,6 @@
 from flask import Flask, url_for, render_template, request, redirect, session, Blueprint
 from models.user_model import User
-from app import db
+from config import db
 
 app_auth = Blueprint('route_auth', __name__, url_prefix="/auth", template_folder="frontend/templates", static_folder="frontend/static")
 
